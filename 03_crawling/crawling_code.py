@@ -26,10 +26,8 @@ def extract_content(content_url):
 
         content = soup.select_one('#articleBodyContents')
 
-        ############## 내가 제거##############
         for x in content.select("span"): x.extract()
         for x in content.select("strong"): x.extract()
-        ############## 내가 제거##############
         for x in content.select('script'): x.extract()  # <script>...</script> 제거
         for x in content(text=lambda text: isinstance(text, Comment)): x.extract()  # <!-- 주석 --> 제거
         for x in content.select("br"): x.replace_with("\n")  # <br>을 \n로 교체
