@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup, Comment
 import pandas as pd
-import urllib.request
+import os
 
 def extract_title(item):
     try:
@@ -41,6 +41,16 @@ def extract_content(content_url):
         print('No Contents')
     return content
 
+def create_file(df):
+    directory = "data/"
+    file_name = "naver_news_multi.csv"
+    try:
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+    except OSError:
+        print('Error: Creating directory. ' + directory)
+    df.to_csv(directory + file_name, encoding='utf-8-sig', index=False)
+
 def page_get():
     x, y = map(str, input('가져올 뉴스의 시작 날짜와 종료 날짜를 입력하세요.(예 : 19980501 20200131) :').split())
     a, b = map(int, input('시작 페이지와 종료 페이지를 입력하세요.(예 : 1 15) :').split())
@@ -78,9 +88,10 @@ def page_get():
     df['title'] = df_title
     df['content'] = df_content
     df['url'] = df_link
-
     df.drop_duplicates()
-    df.to_csv('data/naver_news_multi_real.csv', encoding='utf-8-sig', index=False)
+
+    # 파일 생성 코드
+    create_file(df)
 
 if __name__ == "__main__":
     print("크롤링 시작")
