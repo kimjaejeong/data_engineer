@@ -2,9 +2,9 @@ import boto3
 import pandas as pd
 
 # Windows - CMD: aws configure
-AWS_ACCESS_KEY_ID = ''
-AWS_ACCESS_KEY_SECRET = ''
-region_name = ''
+# AWS_ACCESS_KEY_ID = ''
+# AWS_ACCESS_KEY_SECRET = ''
+# region_name = ''
 
 client = boto3.client('s3') #low-level functional API
 resource = boto3.resource('s3') #high-level object-oriented API
