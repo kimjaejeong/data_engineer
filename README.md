@@ -1,9 +1,8 @@
 # data_engineer
 
-- s3_connection
-
-- S3-GLUE-Athena
-- AWS 대용량 처리
-- 외부데이터 크롤링 -> S3 저장
-- Apache Airflow
+- 01_s3_connection
+- 02_s3_glue_athena
+- 03_crawling
+- 04_large_capacity_processing
+- 05_mwaa(Amazon Managed Workflows for Apache Airflow)
 
