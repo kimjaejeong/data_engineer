@@ -1,10 +1,11 @@
 # Airflow
 - 참고 url
+  - https://airflow.apache.org/docs/apache-airflow/stable/start/docker.html
+      - 공식 홈페이지
   - https://dydwnsekd.tistory.com/56
   - https://www.youtube.com/watch?v=aTaytcxy2Ck
     - 기본 강의
-  - https://airflow.apache.org/docs/apache-airflow/stable/start/docker.html
-    - 공식 홈페이지
+  
 - airflow에서 제공하는 docker-compose.yml을 다운로드 
 ```bash
 - curl -LfO 'http://apache-airflow-docs.s3-website.eu-central-1.amazonaws.com/docs/apache-airflow/latest/docker-compose.yaml'
