@@ -1,0 +1,41 @@
+version: "2"
+
+services:
+    traefik:
+        image: "traefik"
+        container_name: "traefik"
+        depends_on:
+            - "mattermost"
+        ports:
+            - "80:80"
+            - "8080:8080"
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+#            - /home/yundream/workspace/devops/traefik.yml:/etc/traefik/traefik.yml
+            - ./traefik.yml:/etc/traefik/traefik.yml
+    mattermost:
+        image: mattermost/mattermost-prod-app
+        environment:
+            - DB_PORT_NUMBER=3306
+            - MM_SQLSETTINGS_DRIVERNAME=mysql
+            - MM_SQLSETTINGS_DATASOURCE=mmuser:1234abcd@tcp(db:3306)/mattermost?charset=utf8mb4,utf8&readTimeout=30s&writeTimeout=30s
+            - MM_USERNAME=mmuser
+            - MM_PASSWORD=1234abcd
+            - MM_DBNAME=mattermost
+        labels:
+            - "traefik.enable=true"
+            - "traefik.port=8000"
+            - "traefik.frontend.rule=Host:chat.joinc.co.kr"
+            - "traefik.http.routers.mattermost.rule=Host(`chat.joinc.co.kr`)"
+    db:
+        image: mysql/mysql-server:8.0
+        # read_only: true
+        restart: unless-stopped
+        volumes:
+            - ./volumes/db/var/lib/mysql:/var/lib/mysql
+            - /etc/localtime:/etc/localtime:ro
+        environment:
+            - MYSQL_ROOT_PASSWORD=mysql-root-password
+            - MYSQL_USER=mmuser
+            - MYSQL_PASSWORD=1234abcd
+            - MYSQL_DATABASE=mattermost
