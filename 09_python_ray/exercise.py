@@ -35,6 +35,9 @@ if __name__ == "__main__":
     # process_run(16)
 
     # test2 - ray.put 비교
+    '''
+    ray.put() - 큰 배열을 공유 메모리에 저장하고 복사본을 만들지 앟고 모든 작업자에 프로세스에 엑세스 할 수 있음
+    '''
     start = time.time()
     a = np.zeros((5000,5000))
     result_ids = [no_work.remote(a) for x in range(10)]
@@ -47,19 +50,6 @@ if __name__ == "__main__":
     results = ray.get(result_ids)
     print("duration =", time.time() - start)
 
-
-
-
-
-
-
-
-
     print("종료")
 
 
-'''
-ray.put() - 큰 배열을 공유 메모리에 저장하고 복사본을 만들지 앟고 모든 작업자에 프로세스에 엑세스 할 수 있음
-            
-
-'''
